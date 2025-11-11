@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="color.css">
+  <title>Color Tool</title>
+  <style>
+    .copy-btn {
+      cursor: pointer;
+      font-size: 14px;
+      margin-left: 6px;
+      color: #0078D7;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .copy-btn:hover { color: #005A9E; }
+    .copied {
+      font-size: 12px;
+      color: #4CAF50;
+      margin-left: 6px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .copied.show { opacity: 1; }
+    select:disabled {
+      background-color: #3a3a3a;
+      color: #777;
+      cursor: not-allowed;
+    }
+    #colorPreview {
+      width: 120px;
+      height: 32px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: monospace;
+      font-size: 14px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- ========================== -->
+    <!-- CONFIGURATION GENERATOR -->
+    <!-- ========================== -->
+    <form>
+      <label for="accountType">Account Type:</label>
+      <select id="accountType"></select>
+
+      <label for="lp">LP:</label>
+      <select id="lp"></select>
+
+      <label for="book">A-Book %:</label>
+      <select id="book"></select>
+
+      <label for="exceptions">Exceptions:</label>
+      <select id="exceptions"></select>
+
+      <label for="swapsStorage">Swap Cancellation:</label>
+      <select id="swapsStorage"></select>
+
+      <label for="marketDepthDelay">Market Depth:</label>
+      <select id="marketDepthDelay"></select>
+
+      <input type="submit" id="configSubmit" value="Submit">
+
+      <div id="colors">
+        <div id="mq">
+          <p>MQ Color 
+            <span class="copy-btn" onclick="copyText('mqColor', this)">📋</span>
+            <span class="copied">Copied!</span>
+          </p>
+          <p id="mqColor"></p>
+        </div>
+
+        <div id="hex">
+          <p>Hex Color 
+            <span class="copy-btn" onclick="copyText('hexColor', this)">📋</span>
+            <span class="copied">Copied!</span>
+          </p>
+          <div id="colorPreview">#000000</div>
+          <p id="hexColor" style="display:none;">#000000</p>
+        </div>
+
+        <div id="decimal">
+          <p>Decimal Color 
+            <span class="copy-btn" onclick="copyText('decimalColor', this)">📋</span>
+            <span class="copied">Copied!</span>
+          </p>
+          <p id="decimalColor"></p>
+        </div>
+      </div>
+    </form>
+
+    <hr><br>
+
+    <!-- ========================== -->
+    <!-- MQ TO COLOR DECODER -->
+    <!-- ========================== -->
+    <form>
+      <label for="mqColorCode">MQ Color:</label>
+      <input type="text" id="mqColorCode" placeholder="12345">
+      <input type="submit" id="mqsubmit" value="Submit">
+
+      <p>Account Type:</p><p id="mqAccountType"></p>
+      <p>LP:</p><p id="mqLp"></p>
+      <p>A-Book %:</p><p id="mqBook"></p>
+      <p>Swap Cancellation:</p><p id="mqSwapsStorage"></p>
+      <p>Market Depth:</p><p id="mqMarketDepthDelay"></p>
+      <p>Hex Color:</p><p id="hexColorFromMq"></p>
+      <p>Decimal Color:</p><p id="rgbColorFromMq"></p>
+    </form>
+
+    <hr><br>
+
+    <!-- ========================== -->
+    <!-- HEX TO COLOR DECODER -->
+    <!-- ========================== -->
+    <form>
+      <label for="hexColorCode">Hex Color:</label>
+      <input type="text" id="hexColorCode" placeholder="#102700">
+      <input type="submit" id="hexsubmit" value="Submit">
+
+      <p>Account Type:</p><p id="hexAccountType"></p>
+      <p>LP:</p><p id="hexLp"></p>
+      <p>A-Book %:</p><p id="hexBook"></p>
+      <p>Swap Cancellation:</p><p id="hexSwapsStorage"></p>
+      <p>Market Depth:</p><p id="hexMarketDepthDelay"></p>
+      <p>MQ Color:</p><p id="mqColorFromHex"></p>
+      <p>Decimal Color:</p><p id="rgbColorFromHex"></p>
+    </form>
+
+    <hr><br>
+
+    <!-- ========================== -->
+    <!-- DECIMAL TO COLOR DECODER -->
+    <!-- ========================== -->
+    <form>
+      <label for="decimalColorCode">Decimal Color:</label>
+      <input type="text" id="decimalColorCode" placeholder="16,39,0">
+      <input type="submit" id="decimalsubmit" value="Submit">
+
+      <p>Account Type:</p><p id="decimalAccountType"></p>
+      <p>LP:</p><p id="decimalLp"></p>
+      <p>A-Book %:</p><p id="decimalBook"></p>
+      <p>Swap Cancellation:</p><p id="decimalSwapsStorage"></p>
+      <p>Market Depth:</p><p id="decimalMarketDepthDelay"></p>
+      <p>MQ Color:</p><p id="mqColorFromRgb"></p>
+      <p>Hex Color:</p><p id="hexColorFromRgb"></p>
+    </form>
+
+  </div>
+  <script src="color.js"></script>
+</body>
+</html>
